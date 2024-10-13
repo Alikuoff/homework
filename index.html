@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Topshiriqlar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url(https://www.ulife.uz/images/105171-desktop.9f979719fffcfbf29a06.jpeg);
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            background-color: #fff;
+            margin: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+        }
+        h2 {
+            color: #333;
+        }
+        input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #444;
+            font-size: 16px;
+            background-color: #e7f3fe;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        table {
+            margin-top: 10px;
+            border-collapse: collapse;
+            width: 100%;
+            text-align: left;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        th, td {
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>1. Basketbol ochkolarini hisoblash</h2>
+        <input type="number" id="threePoints" placeholder="3 ochkoli gollar soni">
+        <input type="number" id="twoPoints" placeholder="2 ochkoli gollar soni">
+        <button onclick="calculateBasketballScore()">Hisoblash</button>
+        <div class="result" id="basketballResult"></div>
+    </div>
+
+    <div class="container">
+        <h2>2. Xarajatlarni hisoblash</h2>
+        <input type="text" id="productName" placeholder="Mahsulot nomi">
+        <input type="number" id="price" placeholder="Narxi">
+        <input type="number" id="quantity" placeholder="Miqdori">
+        <button onclick="calculateExpense()">Hisoblash</button>
+        <div class="result" id="expenseResult"></div>
+    </div>
+
+    <div class="container">
+        <h2>3. Imtihon natijalarini hisoblash</h2>
+        <input type="text" id="subjectName" placeholder="Fan nomi">
+        <input type="number" id="passed" placeholder="O'tganlar soni">
+        <input type="number" id="failed" placeholder="Muvaffaqiyatsizliklar soni">
+        <input type="number" id="absent" placeholder="Kelmaganlar soni">
+        <button onclick="calculateExamResults()">Hisoblash</button>
+        <div class="result" id="examResult"></div>
+    </div>
+
+    <div class="container">
+        <h2>4. Haroratni Farengeytga o'tkazish</h2>
+        <input type="number" id="celsius" placeholder="Harorat Tselsiyda">
+        <button onclick="convertTemperature()">O'tkazish</button>
+        <div class="result" id="temperatureResult"></div>
+    </div>
+
+    <script>
+        // 1. Basketbol ochkolarini hisoblash
+        function calculateBasketballScore() {
+            const threePoints = parseInt(document.getElementById('threePoints').value) || 0;
+            const twoPoints = parseInt(document.getElementById('twoPoints').value) || 0;
+            const totalScore = (threePoints * 3) + (twoPoints * 2);
+            document.getElementById('basketballResult').innerText = 'Yakuniy ochko: ' + totalScore;
+        }
+
+        // 2. Xarajatlarni hisoblash
+        function calculateExpense() {
+            const productName = document.getElementById('productName').value;
+            const price = parseFloat(document.getElementById('price').value) || 0;
+            const quantity = parseInt(document.getElementById('quantity').value) || 0;
+            const totalCost = price * quantity;
+
+            document.getElementById('expenseResult').innerHTML = `
+                <table>
+                    <tr><th>Buyum</th><th>Narxi</th><th>Miqdori</th><th>Umumiy narx</th></tr>
+                    <tr><td>${productName}</td><td>${price.toFixed(2)}</td><td>${quantity}</td><td>${totalCost.toFixed(2)}</td></tr>
+                </table>
+            `;
+        }
+
+        // 3. Imtihon natijalarini hisoblash
+        function calculateExamResults() {
+            const subjectName = document.getElementById('subjectName').value;
+            const passed = parseInt(document.getElementById('passed').value) || 0;
+            const failed = parseInt(document.getElementById('failed').value) || 0;
+            const absent = parseInt(document.getElementById('absent').value) || 0;
+            const total = passed + failed + absent;
+
+            const passPercentage = ((passed / total) * 100).toFixed(1);
+            const failPercentage = ((failed / total) * 100).toFixed(1);
+            const absentPercentage = ((absent / total) * 100).toFixed(1);
+
+            document.getElementById('examResult').innerText = `
+                ${subjectName} fanida o'tish foizi: ${passPercentage}%, muvaffaqiyatsizliklar foizi: ${failPercentage}%, qatnashmaganlar foizi: ${absentPercentage}%
+            `;
+        }
+
+        // 4. Haroratni Farengeytga o'tkazish
+        function convertTemperature() {
+            const celsius = parseFloat(document.getElementById('celsius').value) || 0;
+            const fahrenheit = (celsius * 1.8 + 32).toFixed(2);
+            document.getElementById('temperatureResult').innerText = `Farengeyt: ${fahrenheit}°F`;
+        }
+    </script>
+
+</body>
+</html>
